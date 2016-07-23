@@ -1,15 +1,17 @@
 package ee.icefire.decathlon;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class MainTest {
 
-    @Before
-    public void setUp() {
-    }
+	@Test
+	public void testReadingFromRealFile() throws Exception {
+		// input real file
 
-    @Test
-    public void testMain() {
-    }
+	}
+
+	@Test
+	public void testInputFileForCorrectData() {
+		// correct column count
+	}
 }
