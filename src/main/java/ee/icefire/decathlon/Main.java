@@ -1,7 +1,6 @@
 package ee.icefire.decathlon;
 
 class Main {
-
 	private Main(String fileName) {
 		new Decathlon(fileName);
 	}
