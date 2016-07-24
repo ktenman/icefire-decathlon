@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import static ee.icefire.decathlon.utils.PerformanceParser.parsePerformanceToFloat;
@@ -17,12 +18,12 @@ import static java.util.stream.Collectors.toList;
 class Decathlon {
 
 	private final List<Athlete> athletes = new ArrayList<>();
-	private final String fileName;
-	private List<String> athleteResults;
+	String fileName;
+	List<String> athleteResults;
 
-	Decathlon(String fileName) {
+	public Decathlon(String fileName) {
 		this.fileName = fileName;
-		getResultsOfAthleteFromFile();
+		getResultsOfAthletesFromFile();
 		if (validDataFound()) {
 			calculatePointsOfAthletes();
 			printResults();
@@ -31,11 +32,16 @@ class Decathlon {
 		}
 	}
 
-	private void getResultsOfAthleteFromFile() {
+	public Decathlon(Consumer<Decathlon> builder) {
+		builder.accept(this);
+	}
+
+	public void getResultsOfAthletesFromFile() {
 		try {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
 		} catch (IOException e) {
 			System.out.println("Something is wrong with input file.");
+			e.printStackTrace();
 			System.exit(0);
 		}
 	}
