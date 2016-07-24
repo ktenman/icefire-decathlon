@@ -9,9 +9,8 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 class Decathlon {
-
-	private List<String> athleteResults;
 	private final List<Athlete> athletes = new ArrayList<>();
+	private List<String> athleteResults;
 
 	Decathlon(String fileName) {
 		try {
