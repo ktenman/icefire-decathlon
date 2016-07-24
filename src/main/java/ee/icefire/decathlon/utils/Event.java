@@ -2,16 +2,16 @@ package ee.icefire.decathlon.utils;
 
 enum Event {
 
-	race_100m(25.4347f, 18f, 1.81f, EventType.RUNNING),
-	long_jump(0.14354f, 220f, 1.4f, EventType.JUMPING),
-	shot_put(51.39f, 1.5f, 1.05f, EventType.THROWING),
-	high_jump(0.8465f, 75f, 1.42f, EventType.JUMPING),
-	race_400m(1.53775f, 82f, 1.81f, EventType.RUNNING),
-	hurdles_110m(5.74352f, 28.5f, 1.92f, EventType.RUNNING),
-	discus_throw(12.91f, 4f, 1.1f, EventType.THROWING),
-	pole_vault(0.2797f, 100f, 1.35f, EventType.JUMPING),
-	javelin_throw(10.14f, 7f, 1.08f, EventType.THROWING),
-	race_1500m(0.03768f, 480f, 1.85f, EventType.RUNNING);
+	RACE_100M(25.4347F, 18F, 1.81F, EventType.RUNNING),
+	LONG_JUMP(0.14354F, 220F, 1.4F, EventType.JUMPING),
+	SHOT_PUT(51.39F, 1.5F, 1.05F, EventType.THROWING),
+	HIGH_JUMP(0.8465F, 75F, 1.42F, EventType.JUMPING),
+	RACE_400M(1.53775F, 82F, 1.81F, EventType.RUNNING),
+	HURDLES_110M(5.74352F, 28.5F, 1.92F, EventType.RUNNING),
+	DISCUS_THROW(12.91F, 4F, 1.1F, EventType.THROWING),
+	POLE_VAULT(0.2797F, 100F, 1.35F, EventType.JUMPING),
+	JAVELIN_THROW(10.14F, 7F, 1.08F, EventType.THROWING),
+	RACE_1500M(0.03768F, 480F, 1.85F, EventType.RUNNING);
 
 	final float A;
 	final float B;

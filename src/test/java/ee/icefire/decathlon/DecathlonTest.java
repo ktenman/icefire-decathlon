@@ -26,7 +26,7 @@ public class DecathlonTest {
 
 		String name = "RYyFajDbpjuP.csv";
 		File file = new File(name);
-		if (notExists(file)) {
+		if (!fileExists(file)) {
 			decathlon.setFileName(name);
 			decathlon.getResultsOfAthletesFromFile();
 			assertFalse(decathlon.isReadFromFileSuccess());
@@ -39,18 +39,18 @@ public class DecathlonTest {
 
 	@Test
 	public void testNoResultFound() {
-		String name = "ZZNw45kuurzX.csv";
+		String name = "results.csv";
 		File file = new File(name);
-		if (notExists(file)) {
+		//if (notExists(file)) {
 			decathlon.setFileName(name);
 			decathlon.getResultsOfAthletesFromFile();
 			boolean noResultsFould = decathlon.getAthletes().size() == 0;
 			assertTrue(noResultsFould);
-		}
+		//}
 	}
 
-	private boolean notExists(File file) {
-		return !file.exists() || file.isDirectory();
+	private boolean fileExists(File file) {
+		return file.exists();
 	}
 
 }
