@@ -5,20 +5,19 @@ public class PointsCalculator {
 	public static int calculate(int index, float performance) {
 
 		Event event = EventMapper.eventMap.get(index);
-		int calculation = 0;
-		switch (event.getType()) {
+		int points = 0;
+		switch (event.type) {
 			case RUNNING:
-				calculation = (int) (event.getA() * Math.pow(event.getB() - performance, event.getC()));
+				points = (int) (event.A * Math.pow(event.B - performance, event.C));
 				break;
 			case JUMPING:
-				calculation = (int) (event.getA() * Math.pow(performance * 100 - event.getB(), event.getC()));
+				points = (int) (event.A * Math.pow(performance * 100 - event.B, event.C));
 				break;
 			case THROWING:
-				calculation = (int) (event.getA() * Math.pow(performance - event.getB(), event.getC()));
+				points = (int) (event.A * Math.pow(performance - event.B, event.C));
 				break;
-			default:
 		}
 
-		return calculation;
+		return points;
 	}
 }
