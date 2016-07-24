@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static ee.icefire.decathlon.utils.PerformanceParser.parsePerformanceToFloat;
 import static ee.icefire.decathlon.utils.PointsCalculator.calculate;
@@ -26,45 +27,45 @@ class Decathlon {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
-			System.exit(0);
+			System.exit( 0 );
 		}
 	}
 
 	private void getResultsOfAthleteFromFile() {
 		try {
-			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
+			athleteResults = Files.lines( Paths.get( fileName ) ).collect( toList() );
 		} catch (IOException e) {
-			System.out.println("Something is wrong with input file.");
-			System.exit(0);
+			System.out.println( "Something is wrong with input file." );
+			System.exit( 0 );
 		}
 	}
 
 	private boolean validDataFound() {
-		StringBuilder error = new StringBuilder("Please check your file.\n\nRequirments:\n");
+		StringBuilder error = new StringBuilder( "Please check your file.\n\nRequirments:\n" );
 		boolean validDataFound = true;
 		if (noResultFound()) {
-			error.append("* There must be at least one result.\n");
+			error.append( "* There must be at least one result.\n" );
 			validDataFound = false;
 		}
 		if (resultInWrongFormatExists()) {
-			error.append("* There is a result in wrong format.\n");
+			error.append( "* There is a result in wrong format.\n" );
 			validDataFound = false;
 		}
 		if (!validDataFound) {
-			System.out.print(error);
+			System.out.print( error );
 		}
 		return validDataFound;
 	}
 
 	private boolean resultInWrongFormatExists() {
 		for (String athleteResult : athleteResults) {
-			String[] columns = athleteResult.split(";");
+			String[] columns = athleteResult.split( ";" );
 			if (columns.length != 11) {
 				return true;
 			}
 			for (int i = 1; i < columns.length; i++) {
 				try {
-					parsePerformanceToFloat(columns[i]);
+					parsePerformanceToFloat( columns[i] );
 				} catch (Exception e) {
 					return true;
 				}
@@ -79,18 +80,20 @@ class Decathlon {
 
 	private void calculatePointsOfAthletes() {
 		for (String athleteResult : athleteResults) {
-			String[] columns = athleteResult.split(";");
+			String[] columns = athleteResult.split( ";" );
 			String name = columns[0];
-			Athlete athlete = new Athlete(name);
+			Athlete athlete = new Athlete( name );
 			for (int i = 1; i < columns.length; i++) {
-				athlete.addEventPoints(calculate(i, parsePerformanceToFloat(columns[i])));
+				athlete.addEventPoints( calculate( i, parsePerformanceToFloat( columns[i] ) ) );
 			}
-			athletes.add(athlete);
+			athletes.add( athlete );
 		}
 	}
 
 	private void printResults() {
-		athletes.forEach(System.out::println);
+		IntStream.range( 0, athletes.size() )
+			.mapToObj( i -> String.format( "%2d. %s", i + 1, athletes.get( i ) ) )
+			.forEach( System.out::println );
 	}
 
 }
