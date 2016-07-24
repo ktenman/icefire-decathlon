@@ -6,7 +6,6 @@ public class MainTest {
 
 	@Test
 	public void testReadingFromRealFile() throws Exception {
-		// input real file
 
 	}
 
