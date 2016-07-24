@@ -19,6 +19,7 @@ public class PointsCalculator {
 				points = (int) (event.A * Math.pow(performance - event.B, event.C));
 				break;
 			default:
+				System.out.println("Given EventType was wrong.");
 				break;
 		}
 
