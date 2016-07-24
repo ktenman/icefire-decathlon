@@ -9,4 +9,5 @@ class Main {
 		}
 		new Decathlon(fileName);
 	}
+
 }

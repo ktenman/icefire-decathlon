@@ -9,6 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 class Decathlon {
+
 	private final List<Athlete> athletes = new ArrayList<>();
 	private List<String> athleteResults;
 

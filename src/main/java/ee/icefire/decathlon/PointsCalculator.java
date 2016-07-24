@@ -3,6 +3,7 @@ package ee.icefire.decathlon;
 class PointsCalculator {
 
 	static int calculatePoints(int index, float performance) {
+
 		Event event = EventMapper.eventMap.get(index);
 		int calculation = 0;
 
