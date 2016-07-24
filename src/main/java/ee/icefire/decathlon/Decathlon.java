@@ -11,19 +11,25 @@ import static java.util.stream.Collectors.toList;
 class Decathlon {
 
 	private final List<Athlete> athletes = new ArrayList<>();
+	private final String fileName;
 	private List<String> athleteResults;
 
 	Decathlon(String fileName) {
-		try {
-			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
-
-		} catch (IOException e) {
-			System.out.println("Something is wrong with input file.");
-		}
+		this.fileName = fileName;
+		getAthleteResultsFromFile();
 		if (validDataFound()) {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
+			System.exit(0);
+		}
+	}
+
+	private void getAthleteResultsFromFile() {
+		try {
+			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
+		} catch (IOException e) {
+			System.out.println("Something is wrong with input file.");
 			System.exit(0);
 		}
 	}
@@ -83,4 +89,5 @@ class Decathlon {
 	private void printResults() {
 		athletes.forEach(System.out::println);
 	}
+
 }
