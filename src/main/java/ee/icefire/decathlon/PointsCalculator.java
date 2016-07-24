@@ -1,9 +1,11 @@
 package ee.icefire.decathlon;
 
 class PointsCalculator {
+
 	static int calculatePoints(int index, float performance) {
 		Event event = EventMapper.eventMap.get(index);
 		int calculation = 0;
+
 		switch (event.type) {
 			case RUNNING:
 				calculation = (int) (event.A * Math.pow(event.B - performance, event.C));
@@ -16,6 +18,7 @@ class PointsCalculator {
 				break;
 			default:
 		}
+
 		return calculation;
 	}
 }
