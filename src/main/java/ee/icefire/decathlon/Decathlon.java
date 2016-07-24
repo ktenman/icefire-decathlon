@@ -1,23 +1,33 @@
 package ee.icefire.decathlon;
 
+
+import ee.icefire.decathlon.objects.Athlete;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
+import static ee.icefire.decathlon.utils.PerformanceParser.parsePerformanceToFloat;
+import static ee.icefire.decathlon.utils.PointsCalculator.calculate;
 import static java.util.stream.Collectors.toList;
 
 class Decathlon {
 
 	private final List<Athlete> athletes = new ArrayList<>();
-	private final String fileName;
+	private String fileName;
 	private List<String> athleteResults;
+	private boolean readFromFileSuccess;
+
+	Decathlon() {
+	}
 
 	Decathlon(String fileName) {
 		this.fileName = fileName;
-		getResultsOfAthleteFromFile();
-		if (validDataFound()) {
+		getResultsOfAthletesFromFile();
+		if (validDataFound() && isReadFromFileSuccess()) {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
@@ -25,12 +35,29 @@ class Decathlon {
 		}
 	}
 
-	private void getResultsOfAthleteFromFile() {
+	List<Athlete> getAthletes() {
+		return athletes;
+	}
+
+	void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	boolean isReadFromFileSuccess() {
+		return readFromFileSuccess;
+	}
+
+	private void setReadFromFileSuccess(boolean readFromFileSuccess) {
+		this.readFromFileSuccess = readFromFileSuccess;
+	}
+
+	void getResultsOfAthletesFromFile() {
 		try {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
-		} catch (IOException e) {
-			System.out.println("Something is wrong with input file.");
-			System.exit(0);
+			setReadFromFileSuccess(true);
+		} catch (IOException exception) {
+			System.out.println("Something is wrong with input file." + exception);
+			setReadFromFileSuccess(false);
 		}
 	}
 
@@ -52,7 +79,6 @@ class Decathlon {
 	}
 
 	private boolean resultInWrongFormatExists() {
-//		Nimi;10,2;790;18,75;217;46,00;13,70;57,50;478;81,00;3:40,2
 		for (String athleteResult : athleteResults) {
 			String[] columns = athleteResult.split(";");
 			if (columns.length != 11) {
@@ -60,7 +86,7 @@ class Decathlon {
 			}
 			for (int i = 1; i < columns.length; i++) {
 				try {
-					PerformanceParser.parsePerformanceToFloat(columns[i]);
+					parsePerformanceToFloat(columns[i]);
 				} catch (Exception e) {
 					return true;
 				}
@@ -79,15 +105,16 @@ class Decathlon {
 			String name = columns[0];
 			Athlete athlete = new Athlete(name);
 			for (int i = 1; i < columns.length; i++) {
-				athlete.addEventPoints(PointsCalculator.calculatePoints(i, PerformanceParser
-					.parsePerformanceToFloat(columns[i])));
+				athlete.addEventPoints(calculate(i, parsePerformanceToFloat(columns[i])));
 			}
 			athletes.add(athlete);
 		}
 	}
 
 	private void printResults() {
-		athletes.forEach(System.out::println);
+		IntStream.range(0, athletes.size())
+			.mapToObj(i -> String.format("%2d. %s", i + 1, athletes.get(i)))
+			.forEach(System.out::println);
 	}
 
 }

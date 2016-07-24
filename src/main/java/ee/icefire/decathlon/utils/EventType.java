@@ -1,4 +1,4 @@
-package ee.icefire.decathlon;
+package ee.icefire.decathlon.utils;
 
 enum EventType {
 	RUNNING, JUMPING, THROWING
