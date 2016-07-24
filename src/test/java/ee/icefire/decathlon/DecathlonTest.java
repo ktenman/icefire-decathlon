@@ -1,5 +1,6 @@
 package ee.icefire.decathlon;
 
+import ee.icefire.decathlon.objects.Athlete;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,10 +25,9 @@ public class DecathlonTest {
 		decathlon.getResultsOfAthletesFromFile();
 		assertFalse(decathlon.isReadFromFileSuccess());
 
-		String name = "RYyFajDbpjuP.csv";
-		File file = new File(name);
+		File file = new File("RYyFajDbpjuP.csv");
 		if (!fileExists(file)) {
-			decathlon.setFileName(name);
+			decathlon.setFileName("RYyFajDbpjuP.csv");
 			decathlon.getResultsOfAthletesFromFile();
 			assertFalse(decathlon.isReadFromFileSuccess());
 		}
@@ -41,6 +41,9 @@ public class DecathlonTest {
 	public void testNoResultFound() {
 		String name = "results.csv";
 		File file = new File(name);
+		for (Athlete athlete : decathlon.getAthletes()) {
+			System.out.println(athlete);
+		}
 		//if (notExists(file)) {
 			decathlon.setFileName(name);
 			decathlon.getResultsOfAthletesFromFile();
