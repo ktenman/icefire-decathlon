@@ -1,11 +1,16 @@
 package ee.icefire.decathlon;
 
+
+import ee.icefire.decathlon.objects.Athlete;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ee.icefire.decathlon.utils.PerformanceParser.parsePerformanceToFloat;
+import static ee.icefire.decathlon.utils.PointsCalculator.calculate;
 import static java.util.stream.Collectors.toList;
 
 class Decathlon {
@@ -52,7 +57,6 @@ class Decathlon {
 	}
 
 	private boolean resultInWrongFormatExists() {
-//		Nimi;10,2;790;18,75;217;46,00;13,70;57,50;478;81,00;3:40,2
 		for (String athleteResult : athleteResults) {
 			String[] columns = athleteResult.split(";");
 			if (columns.length != 11) {
@@ -60,7 +64,7 @@ class Decathlon {
 			}
 			for (int i = 1; i < columns.length; i++) {
 				try {
-					PerformanceParser.parsePerformanceToFloat(columns[i]);
+					parsePerformanceToFloat(columns[i]);
 				} catch (Exception e) {
 					return true;
 				}
@@ -79,8 +83,7 @@ class Decathlon {
 			String name = columns[0];
 			Athlete athlete = new Athlete(name);
 			for (int i = 1; i < columns.length; i++) {
-				athlete.addEventPoints(PointsCalculator.calculatePoints(i, PerformanceParser
-					.parsePerformanceToFloat(columns[i])));
+				athlete.addEventPoints(calculate(i, parsePerformanceToFloat(columns[i])));
 			}
 			athletes.add(athlete);
 		}

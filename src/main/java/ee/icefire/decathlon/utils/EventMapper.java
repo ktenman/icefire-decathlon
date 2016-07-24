@@ -1,4 +1,4 @@
-package ee.icefire.decathlon;
+package ee.icefire.decathlon.utils;
 
 import java.util.Collections;
 import java.util.HashMap;

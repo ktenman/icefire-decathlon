@@ -1,16 +1,16 @@
-package ee.icefire.decathlon;
+package ee.icefire.decathlon.objects;
 
-class Athlete {
+public class Athlete {
 
 	private final String name;
 	private Integer finalScore;
 
-	Athlete(String name) {
+	public Athlete(String name) {
 		this.name = name;
 		this.finalScore = 0;
 	}
 
-	void addEventPoints(int eventPoints) {
+	public void addEventPoints(int eventPoints) {
 		finalScore += eventPoints;
 	}
 

@@ -1,4 +1,4 @@
-package ee.icefire.decathlon;
+package ee.icefire.decathlon.utils;
 
 enum Event {
 
@@ -25,4 +25,19 @@ enum Event {
 		this.type = type;
 	}
 
+	public float getA() {
+		return A;
+	}
+
+	public float getB() {
+		return B;
+	}
+
+	public float getC() {
+		return C;
+	}
+
+	public EventType getType() {
+		return type;
+	}
 }

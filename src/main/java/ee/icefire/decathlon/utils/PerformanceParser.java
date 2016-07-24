@@ -1,8 +1,8 @@
-package ee.icefire.decathlon;
+package ee.icefire.decathlon.utils;
 
-class PerformanceParser {
+public class PerformanceParser {
 
-	static float parsePerformanceToFloat(String value) {
+	public static float parsePerformanceToFloat(String value) {
 		value = value.replace(",", ".");
 		if (value.contains(":")) {
 			String[] values = value.split(":");
