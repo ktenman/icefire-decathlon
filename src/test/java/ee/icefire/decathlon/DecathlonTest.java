@@ -1,28 +1,56 @@
 package ee.icefire.decathlon;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.File;
 
-import static java.util.stream.Collectors.toList;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DecathlonTest {
 
 	private Decathlon decathlon;
 
-	@Test(expected=IOException.class)
-	public void setUp(){
-		decathlon = new Decathlon(d -> {
-			d.fileName = "f8PtWj3dY2Uw.csv";
-			d.athleteResults = new ArrayList<>();
-		});
+	@Before
+	public void setUp() {
+		decathlon = new Decathlon();
+	}
+
+	@Test
+	public void testGetResultsOfAthletesFromFile() {
+
+		decathlon.setFileName("");
 		decathlon.getResultsOfAthletesFromFile();
+		assertFalse(decathlon.isReadFromFileSuccess());
+
+		String name = "RYyFajDbpjuP.csv";
+		File file = new File(name);
+		if (notExists(file)) {
+			decathlon.setFileName(name);
+			decathlon.getResultsOfAthletesFromFile();
+			assertFalse(decathlon.isReadFromFileSuccess());
+		}
+
+		decathlon.setFileName("results.csv");
+		decathlon.getResultsOfAthletesFromFile();
+		assertTrue(decathlon.isReadFromFileSuccess());
+	}
+
+	@Test
+	public void testNoResultFound() {
+		String name = "ZZNw45kuurzX.csv";
+		File file = new File(name);
+		if (notExists(file)) {
+			decathlon.setFileName(name);
+			decathlon.getResultsOfAthletesFromFile();
+			boolean noResultsFould = decathlon.getAthletes().size() == 0;
+			assertTrue(noResultsFould);
+		}
+	}
+
+	private boolean notExists(File file) {
+		return !file.exists() || file.isDirectory();
 	}
 
 }

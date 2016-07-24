@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 import static ee.icefire.decathlon.utils.PerformanceParser.parsePerformanceToFloat;
@@ -18,13 +17,17 @@ import static java.util.stream.Collectors.toList;
 class Decathlon {
 
 	private final List<Athlete> athletes = new ArrayList<>();
-	String fileName;
-	List<String> athleteResults;
+	private String fileName;
+	private List<String> athleteResults;
+	private boolean readFromFileSuccess;
 
-	public Decathlon(String fileName) {
+	Decathlon() {
+	}
+
+	Decathlon(String fileName) {
 		this.fileName = fileName;
 		getResultsOfAthletesFromFile();
-		if (validDataFound()) {
+		if (validDataFound() && isReadFromFileSuccess()) {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
@@ -32,17 +35,29 @@ class Decathlon {
 		}
 	}
 
-	public Decathlon(Consumer<Decathlon> builder) {
-		builder.accept(this);
+	List<Athlete> getAthletes() {
+		return athletes;
 	}
 
-	public void getResultsOfAthletesFromFile() {
+	void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	boolean isReadFromFileSuccess() {
+		return readFromFileSuccess;
+	}
+
+	private void setReadFromFileSuccess(boolean readFromFileSuccess) {
+		this.readFromFileSuccess = readFromFileSuccess;
+	}
+
+	void getResultsOfAthletesFromFile() {
 		try {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
+			setReadFromFileSuccess(true);
 		} catch (IOException e) {
 			System.out.println("Something is wrong with input file.");
-			e.printStackTrace();
-			System.exit(0);
+			setReadFromFileSuccess(false);
 		}
 	}
 
