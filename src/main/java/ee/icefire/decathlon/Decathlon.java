@@ -20,28 +20,29 @@ class Decathlon {
 		} catch (IOException e) {
 			System.out.println("Something is wrong with input file.");
 		}
-		if (notValidDataFound()) {
+		if (validDataFound()) {
+			calculatePointsOfAthletes();
+			printResults();
+		} else {
 			System.exit(0);
 		}
-		calculatePoints(athleteResults);
-		printResults();
 	}
 
-	private boolean notValidDataFound() {
+	private boolean validDataFound() {
 		StringBuilder error = new StringBuilder("Please check your file.\n\nRequirments:\n");
-		boolean notValidDataFound = false;
+		boolean validDataFound = true;
 		if (noResultFound()) {
 			error.append("* There must be at least one result.\n");
-			notValidDataFound = true;
+			validDataFound = false;
 		}
 		if (resultInWrongFormatExists()) {
 			error.append("* There is a result in wrong format.\n");
-			notValidDataFound = true;
+			validDataFound = false;
 		}
-		if (notValidDataFound) {
+		if (!validDataFound) {
 			System.out.print(error);
 		}
-		return notValidDataFound;
+		return validDataFound;
 	}
 
 	private boolean resultInWrongFormatExists() {
@@ -66,7 +67,7 @@ class Decathlon {
 		return athleteResults.size() == 0;
 	}
 
-	private void calculatePoints(List<String> athleteResults) {
+	private void calculatePointsOfAthletes() {
 		for (String athleteResult : athleteResults) {
 			String[] columns = athleteResult.split(";");
 			String name = columns[0];
