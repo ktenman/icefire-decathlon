@@ -93,7 +93,7 @@ class Decathlon {
 			for (int i = 1; i < columns.length; i++) {
 				try {
 					parsePerformanceToFloat(columns[i]);
-				} catch (Exception e) {
+				} catch (Exception exception) {
 					return true;
 				}
 			}
