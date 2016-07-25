@@ -39,6 +39,14 @@ class Decathlon {
 		return athletes;
 	}
 
+	List<String> getAthleteResults() {
+		return athleteResults;
+	}
+
+	void setAthleteResults(List<String> athleteResults) {
+		this.athleteResults = athleteResults;
+	}
+
 	void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
@@ -78,7 +86,7 @@ class Decathlon {
 		return validDataFound;
 	}
 
-	private boolean resultInWrongFormatExists() {
+	boolean resultInWrongFormatExists() {
 		for (String athleteResult : athleteResults) {
 			String[] columns = athleteResult.split(";");
 			if (columns.length != 11) {
