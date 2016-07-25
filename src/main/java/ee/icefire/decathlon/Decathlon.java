@@ -1,6 +1,5 @@
 package ee.icefire.decathlon;
 
-
 import ee.icefire.decathlon.objects.Athlete;
 
 import java.io.IOException;
