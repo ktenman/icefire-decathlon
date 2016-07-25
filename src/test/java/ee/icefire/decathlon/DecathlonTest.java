@@ -49,12 +49,7 @@ public class DecathlonTest {
 
 	@Test
 	public void testResultInWrongFormatExists() {
-		String fileName = "results.csv";
-		try {
-			decathlon.setAthleteResults(Files.lines(Paths.get(fileName)).collect(toList()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		getAthleteResults();
 		assertFalse(decathlon.resultInWrongFormatExists());
 	}
 

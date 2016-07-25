@@ -63,7 +63,7 @@ class Decathlon {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
 			setReadFromFileSuccess(true);
 		} catch (IOException exception) {
-			System.out.println("Something is wrong with input file." + exception);
+			System.out.println("Something is wrong with input file:" + exception);
 			setReadFromFileSuccess(false);
 		}
 	}
