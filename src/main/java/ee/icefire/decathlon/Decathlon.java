@@ -33,6 +33,10 @@ class Decathlon {
 		}
 	}
 
+	List<Athlete> getAthletes() {
+		return athletes;
+	}
+
 	List<String> getAthleteResults() {
 		return athleteResults;
 	}
@@ -102,15 +106,14 @@ class Decathlon {
 	}
 
 	private void calculatePointsOfAthletes() {
-		for (String athleteResult : athleteResults) {
-			String[] columns = athleteResult.split(";");
+		athleteResults.forEach(a -> {
+			String[] columns = a.split(";");
 			String name = columns[0];
 			Athlete athlete = new Athlete(name);
-			for (int i = 1; i < columns.length; i++) {
-				athlete.addEventPoints(calculate(i, parsePerformanceToFloat(columns[i])));
-			}
+			IntStream.range(1, columns.length).forEach(i -> athlete.addEventPoints(calculate(i,
+				parsePerformanceToFloat(columns[i]))));
 			athletes.add(athlete);
-		}
+		});
 	}
 
 	private void printResults() {
