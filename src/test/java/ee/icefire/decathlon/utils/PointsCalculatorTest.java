@@ -21,7 +21,8 @@ public class PointsCalculatorTest {
 	private int calculate(float[] results) {
 		Map<Integer, Float> resultsMap = new TreeMap<>();
 		IntStream.range(0, results.length).forEach(i -> resultsMap.put(i + 1, results[i]));
-		return resultsMap.entrySet().stream().mapToInt(e -> PointsCalculator.calculate(e.getKey(), e.getValue()))
+		return resultsMap.entrySet().stream()
+			.mapToInt(e -> PointsCalculator.calculate(e.getKey(), e.getValue()))
 			.sum();
 	}
 
