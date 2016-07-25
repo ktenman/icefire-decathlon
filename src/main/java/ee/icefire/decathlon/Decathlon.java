@@ -2,7 +2,6 @@ package ee.icefire.decathlon;
 
 import ee.icefire.decathlon.objects.Athlete;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ class Decathlon {
 		try {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
 			setReadFromFileSuccess(true);
-		} catch (IOException exception) {
+		} catch (Exception exception) {
 			System.out.println("Something is wrong with input file:" + exception);
 			setReadFromFileSuccess(false);
 		}
