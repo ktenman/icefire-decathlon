@@ -33,10 +33,6 @@ class Decathlon {
 		}
 	}
 
-	List<Athlete> getAthletes() {
-		return athletes;
-	}
-
 	List<String> getAthleteResults() {
 		return athleteResults;
 	}
