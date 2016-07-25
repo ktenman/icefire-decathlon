@@ -1,11 +1,14 @@
 package ee.icefire.decathlon;
 
-import ee.icefire.decathlon.objects.Athlete;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -39,17 +42,24 @@ public class DecathlonTest {
 
 	@Test
 	public void testNoResultFound() {
-		String name = "results.csv";
-		File file = new File(name);
-		for (Athlete athlete : decathlon.getAthletes()) {
-			System.out.println(athlete);
+		getAthleteResults();
+		boolean noResultsFould = decathlon.getAthleteResults().size() == 0;
+		assertFalse(noResultsFould);
+	}
+
+	@Test
+	public void testResultInWrongFormatExists() {
+		getAthleteResults();
+		assertFalse(decathlon.resultInWrongFormatExists());
+	}
+
+	private void getAthleteResults() {
+		String fileName = "results.csv";
+		try {
+			decathlon.setAthleteResults(Files.lines(Paths.get(fileName)).collect(toList()));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		//if (notExists(file)) {
-			decathlon.setFileName(name);
-			decathlon.getResultsOfAthletesFromFile();
-			boolean noResultsFould = decathlon.getAthletes().size() == 0;
-			assertTrue(noResultsFould);
-		//}
 	}
 
 	private boolean fileExists(File file) {

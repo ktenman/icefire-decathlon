@@ -1,6 +1,5 @@
 package ee.icefire.decathlon;
 
-
 import ee.icefire.decathlon.objects.Athlete;
 
 import java.io.IOException;
@@ -39,6 +38,14 @@ class Decathlon {
 		return athletes;
 	}
 
+	List<String> getAthleteResults() {
+		return athleteResults;
+	}
+
+	void setAthleteResults(List<String> athleteResults) {
+		this.athleteResults = athleteResults;
+	}
+
 	void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
@@ -56,7 +63,7 @@ class Decathlon {
 			athleteResults = Files.lines(Paths.get(fileName)).collect(toList());
 			setReadFromFileSuccess(true);
 		} catch (IOException exception) {
-			System.out.println("Something is wrong with input file." + exception);
+			System.out.println("Something is wrong with input file:" + exception);
 			setReadFromFileSuccess(false);
 		}
 	}
@@ -78,7 +85,7 @@ class Decathlon {
 		return validDataFound;
 	}
 
-	private boolean resultInWrongFormatExists() {
+	boolean resultInWrongFormatExists() {
 		for (String athleteResult : athleteResults) {
 			String[] columns = athleteResult.split(";");
 			if (columns.length != 11) {
