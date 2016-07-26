@@ -25,12 +25,20 @@ class Decathlon {
 	Decathlon(String fileName) {
 		this.fileName = fileName;
 		getResultsOfAthletesFromFile();
-		if (validDataFound() && isReadFromFileSuccess()) {
+		if (validDataFound()) {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
 			System.exit(0);
 		}
+	}
+
+	boolean isReadFromFileSuccess() {
+		return readFromFileSuccess;
+	}
+
+	private void setReadFromFileSuccess(boolean readFromFileSuccess) {
+		this.readFromFileSuccess = readFromFileSuccess;
 	}
 
 	List<Athlete> getAthletes() {
@@ -47,14 +55,6 @@ class Decathlon {
 
 	void setFileName(String fileName) {
 		this.fileName = fileName;
-	}
-
-	boolean isReadFromFileSuccess() {
-		return readFromFileSuccess;
-	}
-
-	private void setReadFromFileSuccess(boolean readFromFileSuccess) {
-		this.readFromFileSuccess = readFromFileSuccess;
 	}
 
 	void getResultsOfAthletesFromFile() {
