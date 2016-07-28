@@ -41,10 +41,6 @@ class Decathlon {
 		this.readFromFileSuccess = readFromFileSuccess;
 	}
 
-	List<Athlete> getAthletes() {
-		return athletes;
-	}
-
 	List<String> getAthleteResults() {
 		return athleteResults;
 	}
