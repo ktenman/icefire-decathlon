@@ -25,7 +25,7 @@ class Decathlon {
 	Decathlon(String fileName) {
 		this.fileName = fileName;
 		getResultsOfAthletesFromFile();
-		if (validDataFound() && isReadFromFileSuccess()) {
+		if (validDataFound()) {
 			calculatePointsOfAthletes();
 			printResults();
 		} else {
