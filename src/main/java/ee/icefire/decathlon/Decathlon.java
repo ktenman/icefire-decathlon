@@ -19,10 +19,9 @@ class Decathlon {
 	private List<String> athleteResults;
 	private boolean readFromFileSuccess;
 
-	Decathlon() {
-	}
+	Decathlon() {}
 
-	Decathlon(String fileName) {
+	private Decathlon(String fileName) {
 		this.fileName = fileName;
 		getResultsOfAthletesFromFile();
 		if (validDataFound()) {
@@ -116,6 +115,18 @@ class Decathlon {
 		IntStream.range(0, athletes.size())
 			.mapToObj(i -> String.format("%2d. %s", i + 1, athletes.get(i)))
 			.forEach(System.out::println);
+	}
+
+	public static void main(String[] args) {
+		String fileName = "results.csv";
+		if (args.length > 0) {
+			IntStream.range(0, args.length).forEach(i -> {
+				System.out.printf("\nResults of '%s':\n", args[i]);
+				new Decathlon(args[i]);
+			});
+		} else {
+			new Decathlon(fileName);
+		}
 	}
 
 }

@@ -14,49 +14,49 @@ import static org.junit.Assert.assertTrue;
 
 public class DecathlonTest {
 
-	private Decathlon decathlon;
+	private Decathlon main;
 
 	@Before
 	public void setUp() {
-		decathlon = new Decathlon();
+		main = new Decathlon();
 	}
 
 	@Test
 	public void testGetResultsOfAthletesFromFile() {
 
-		decathlon.setFileName("");
-		decathlon.getResultsOfAthletesFromFile();
-		assertFalse(decathlon.isReadFromFileSuccess());
+		main.setFileName("");
+		main.getResultsOfAthletesFromFile();
+		assertFalse(main.isReadFromFileSuccess());
 
 		File file = new File("RYyFajDbpjuP.csv");
 		if (!fileExists(file)) {
-			decathlon.setFileName("RYyFajDbpjuP.csv");
-			decathlon.getResultsOfAthletesFromFile();
-			assertFalse(decathlon.isReadFromFileSuccess());
+			main.setFileName("RYyFajDbpjuP.csv");
+			main.getResultsOfAthletesFromFile();
+			assertFalse(main.isReadFromFileSuccess());
 		}
 
-		decathlon.setFileName("results.csv");
-		decathlon.getResultsOfAthletesFromFile();
-		assertTrue(decathlon.isReadFromFileSuccess());
+		main.setFileName("results.csv");
+		main.getResultsOfAthletesFromFile();
+		assertTrue(main.isReadFromFileSuccess());
 	}
 
 	@Test
 	public void testNoResultFound() {
 		getAthleteResults();
-		boolean noResultsFould = decathlon.getAthleteResults().size() == 0;
+		boolean noResultsFould = main.getAthleteResults().size() == 0;
 		assertFalse(noResultsFould);
 	}
 
 	@Test
 	public void testResultInWrongFormatExists() {
 		getAthleteResults();
-		assertFalse(decathlon.resultInWrongFormatExists());
+		assertFalse(main.resultInWrongFormatExists());
 	}
 
 	private void getAthleteResults() {
 		String fileName = "results.csv";
 		try {
-			decathlon.setAthleteResults(Files.lines(Paths.get(fileName)).collect(toList()));
+			main.setAthleteResults(Files.lines(Paths.get(fileName)).collect(toList()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
